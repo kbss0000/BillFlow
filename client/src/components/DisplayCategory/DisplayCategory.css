@@ -1,0 +1,14 @@
+.display-category-container {
+    padding: var(--spacing-sm);
+}
+
+.display-category-container .row {
+    margin: 0;
+}
+
+.display-category-container .col-md-3,
+.display-category-container .col-sm-6 {
+    margin-bottom: var(--spacing-md);
+    padding: 0 var(--spacing-sm);
+}
+

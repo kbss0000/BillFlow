@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: billing_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: billing_app
+      MYSQL_USER: billing_user
+      MYSQL_PASSWORD: billing_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./billing_app.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - billing_network
+
+  # Spring Boot Backend
+  backend:
+    build:
+      context: ./billingsoftware
+      dockerfile: Dockerfile
+    container_name: billing_backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/billing_app
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_PORT: 8080
+      SERVER_SERVLET_CONTEXT_PATH: /api/v1.0
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY:-your_access_key}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY:-your_secret_key}
+      AWS_REGION: ${AWS_REGION:-ap-south-1}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME:-your_bucket_name}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-thisismysecretkeyfortheupcomingproject}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-your_key_id}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-your_secret_key}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./billingsoftware/uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - billing_network
+    restart: unless-stopped
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8080/api/v1.0
+    container_name: billing_frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:8080/api/v1.0
+    depends_on:
+      - backend
+    networks:
+      - billing_network
+    restart: unless-stopped
+
+networks:
+  billing_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
