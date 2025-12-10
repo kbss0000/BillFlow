@@ -3,9 +3,7 @@ package in.bushansirgur.billingsoftware.entity;
 import in.bushansirgur.billingsoftware.io.PaymentDetails;
 import in.bushansirgur.billingsoftware.io.PaymentMethod;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
