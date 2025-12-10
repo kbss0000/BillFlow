@@ -38,7 +38,7 @@ const UsersList = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-12">
-                <div className="w-6 h-6 border-2 border-[#d4a574] border-t-transparent rounded-full animate-spin" />
+                <div className="w-6 h-6 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
             </div>
         )
     }
@@ -66,8 +66,8 @@ const UsersList = () => {
                     className="flex items-center gap-4 p-4 rounded-xl bg-[#111111] border border-[#1f1f1f] hover:border-[#262626] transition-all group"
                 >
                     {/* Avatar */}
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4a574]/20 to-[#d4a574]/5 flex items-center justify-center flex-shrink-0">
-                        <span className="text-[#d4a574] text-lg font-semibold">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3b82f6]/20 to-[#3b82f6]/5 flex items-center justify-center flex-shrink-0">
+                        <span className="text-[#3b82f6] text-lg font-semibold">
                             {user.name?.charAt(0).toUpperCase()}
                         </span>
                     </div>
@@ -77,7 +77,7 @@ const UsersList = () => {
                         <div className="flex items-center gap-2">
                             <h4 className="text-white font-medium truncate">{user.name}</h4>
                             {user.role === "ADMIN" && (
-                                <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d4a574]/10 text-[#d4a574]">
+                                <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6]">
                                     <Shield className="w-3 h-3" />
                                     <span className="text-xs font-medium">Admin</span>
                                 </div>
@@ -88,7 +88,7 @@ const UsersList = () => {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="w-8 h-8 rounded-lg flex items-center justify-center text-[#525252] hover:text-[#d4a574] hover:bg-[#d4a574]/10 transition-all">
+                        <button className="w-8 h-8 rounded-lg flex items-center justify-center text-[#525252] hover:text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all">
                             <Edit2 className="w-4 h-4" />
                         </button>
                         <button

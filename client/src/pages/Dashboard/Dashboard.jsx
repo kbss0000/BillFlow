@@ -121,7 +121,7 @@ const Dashboard = () => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-[#161616] border border-[#262626] rounded-lg px-4 py-2 shadow-xl">
-          <p className="text-[#d4a574] font-semibold">₹{payload[0].value}</p>
+          <p className="text-[#3b82f6] font-semibold">₹{payload[0].value}</p>
         </div>
       )
     }
@@ -150,8 +150,8 @@ const Dashboard = () => {
           <StaggerItem key={stat.label}>
             <TiltCard className="card-premium p-6 group h-full">
               <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#d4a574]/10 flex items-center justify-center group-hover:bg-[#d4a574]/20 transition-colors">
-                  <stat.icon className="w-6 h-6 text-[#d4a574]" />
+                <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center group-hover:bg-[#3b82f6]/20 transition-colors">
+                  <stat.icon className="w-6 h-6 text-[#3b82f6]" />
                 </div>
                 <div className={`flex items-center gap-1 text-xs font-medium ${stat.positive ? "text-[#4ade80]" : "text-[#f87171]"}`}>
                   {stat.positive ? (
@@ -186,17 +186,17 @@ const Dashboard = () => {
               <p className="text-sm text-[#737373]">Weekly performance</p>
             </div>
             <div className="flex items-center gap-2 text-xs text-[#737373]">
-              <div className="w-2 h-2 rounded-full bg-[#d4a574]" />
+              <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
               Revenue
             </div>
           </div>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="h-64 min-h-[256px]">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={200}>
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#d4a574" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#d4a574" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis
@@ -214,7 +214,7 @@ const Dashboard = () => {
                 <Area
                   type="monotone"
                   dataKey="value"
-                  stroke="#d4a574"
+                  stroke="#3b82f6"
                   strokeWidth={2}
                   fill="url(#colorRevenue)"
                 />
@@ -235,7 +235,7 @@ const Dashboard = () => {
             {[
               { label: "Pending Orders", value: 3, color: "#fbbf24" },
               { label: "Completed Today", value: dashboardData.todayOrderCount || 0, color: "#4ade80" },
-              { label: "Total Revenue", value: dashboardData.todaySales || 0, prefix: "₹", color: "#d4a574" },
+              { label: "Total Revenue", value: dashboardData.todaySales || 0, prefix: "₹", color: "#3b82f6" },
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -297,7 +297,7 @@ const Dashboard = () => {
                   >
                     <td className="py-4 text-sm text-white font-medium">{order.orderId}</td>
                     <td className="py-4 text-sm text-[#a3a3a3]">{order.customerName}</td>
-                    <td className="py-4 text-sm text-[#d4a574] font-medium">₹{order.grandTotal}</td>
+                    <td className="py-4 text-sm text-[#3b82f6] font-medium">₹{order.grandTotal}</td>
                     <td className="py-4">
                       <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#4ade80]/10 text-[#4ade80]">
                         Completed

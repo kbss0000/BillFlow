@@ -75,8 +75,8 @@ const Explore = () => {
               <button
                 onClick={() => setSelectedCategory(null)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${selectedCategory === null
-                  ? "bg-[#d4a574] text-[#0a0a0a]"
-                  : "bg-[#161616] text-[#a3a3a3] border border-[#262626] hover:border-[#d4a574]/30"
+                  ? "bg-[#3b82f6] text-white"
+                  : "bg-[#161616] text-[#a3a3a3] border border-[#262626] hover:border-[#3b82f6]/30"
                   }`}
               >
                 All
@@ -121,8 +121,8 @@ const Explore = () => {
         >
           <div className="card-premium p-6 sticky top-8">
             <div className="flex items-center gap-3 mb-6 pb-6 border-b border-[#262626]">
-              <div className="w-10 h-10 rounded-xl bg-[#d4a574]/10 flex items-center justify-center">
-                <ShoppingBag className="w-5 h-5 text-[#d4a574]" />
+              <div className="w-10 h-10 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-[#3b82f6]" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white">Current Order</h3>

@@ -7,7 +7,6 @@ import {
   Users,
   Clock,
   LogOut,
-  Receipt,
   Menu,
   X
 } from "lucide-react"
@@ -44,9 +43,9 @@ const Menubar = () => {
       <div className="p-4 border-b border-white/10">
         <div className={`flex items-center ${isExpanded ? 'justify-between' : 'flex-col gap-3'}`}>
           {/* Logo - always visible */}
-          <div className={`flex items-center gap-3 ${isExpanded ? '' : 'flex-col'}`}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d4a574] to-[#8b6914] flex items-center justify-center shadow-lg shadow-[#d4a574]/30 flex-shrink-0">
-              <Receipt className="w-5 h-5 text-white" strokeWidth={2.5} />
+          <div className={`flex items-center gap-3 ${isExpanded ? '' : 'flex-col mx-auto'}`}>
+            <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-lg shadow-[#3b82f6]/30 flex-shrink-0">
+              <img src="/images/billflow-logo.png" alt="BillFlow" className="w-full h-full object-cover" />
             </div>
             <AnimatePresence mode="wait">
               {isExpanded && (
@@ -57,7 +56,7 @@ const Menubar = () => {
                   transition={{ duration: 0.2 }}
                 >
                   <h1 className="text-lg font-bold tracking-tight text-white whitespace-nowrap">
-                    Bill<span className="text-[#d4a574]">Flow</span>
+                    Bill<span className="text-[#3b82f6]">Flow</span>
                   </h1>
                   <p className="text-[9px] text-white/40 uppercase tracking-widest">
                     Billing System
@@ -92,7 +91,7 @@ const Menubar = () => {
                 className={({ isActive }) =>
                   `group flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${isExpanded ? '' : 'justify-center'
                   } ${isActive
-                    ? "bg-[#d4a574]/20 text-[#d4a574]"
+                    ? "bg-[#3b82f6]/20 text-[#3b82f6]"
                     : "text-white/60 hover:text-white hover:bg-white/5"
                   }`
                 }

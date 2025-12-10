@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ===== MATTE BLACK & AMBER GOLD DESIGN SYSTEM ===== */
+/* ===== MATTE BLACK & BLUE DESIGN SYSTEM ===== */
 
 :root {
   /* Core Colors - Matte Black Palette */
@@ -14,12 +14,12 @@
   --bg-elevated: #1f1f1f;
   --bg-card: #161616;
 
-  /* Accent Colors - Warm Amber/Gold */
-  --accent-primary: #d4a574;
-  --accent-secondary: #c49a6c;
-  --accent-tertiary: #b8956a;
-  --accent-glow: rgba(212, 165, 116, 0.15);
-  --accent-border: rgba(212, 165, 116, 0.25);
+  /* Accent Colors - Blue Theme */
+  --accent-primary: #3b82f6;
+  --accent-secondary: #60a5fa;
+  --accent-tertiary: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.12);
+  --accent-border: rgba(59, 130, 246, 0.25);
 
   /* Text Colors */
   --text-primary: #f5f5f5;
@@ -30,7 +30,7 @@
   /* Border Colors */
   --border-primary: #262626;
   --border-subtle: #1f1f1f;
-  --border-accent: rgba(212, 165, 116, 0.2);
+  --border-accent: rgba(59, 130, 246, 0.2);
 
   /* Status Colors */
   --success: #4ade80;
@@ -42,10 +42,10 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 40px rgba(212, 165, 116, 0.1);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.1);
 
   /* Gradients */
-  --gradient-gold: linear-gradient(135deg, #d4a574 0%, #c49a6c 50%, #b8956a 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   --gradient-dark: linear-gradient(180deg, #111111 0%, #0a0a0a 100%);
   --gradient-card: linear-gradient(145deg, #181818 0%, #111111 100%);
 }
@@ -100,12 +100,8 @@ body {
 
 /* ===== TYPOGRAPHY ===== */
 
-.font-display {
-  font-family: 'Playfair Display', serif;
-}
-
 .text-gradient {
-  background: var(--gradient-gold);
+  background: var(--gradient-accent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -154,20 +150,20 @@ body {
 
 /* Premium Button */
 .btn-premium {
-  background: var(--gradient-gold);
-  color: #0a0a0a;
+  background: var(--gradient-accent);
+  color: #ffffff;
   font-weight: 600;
   padding: 12px 24px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(212, 165, 116, 0.25);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
 }
 
 .btn-premium:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.35);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
 }
 
 .btn-premium:active {
@@ -196,8 +192,7 @@ body {
 .input-premium {
   width: 100%;
   padding: 14px 18px;
-  background: rgba(24, 24, 24, 0.8);
-  backdrop-filter: blur(8px);
+  background: #181818;
   border: 1px solid var(--border-primary);
   border-radius: 12px;
   color: var(--text-primary);
@@ -217,6 +212,22 @@ body {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Select Dropdown Styles */
+select.input-premium {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a3a3a3' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+select.input-premium option {
+  background: #1a1a1a;
+  color: #f5f5f5;
+  padding: 12px;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -247,11 +258,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(212, 165, 116, 0.1);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(212, 165, 116, 0.2);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
   }
 }
 

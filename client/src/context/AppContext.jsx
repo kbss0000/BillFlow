@@ -1,6 +1,6 @@
-import {createContext, useEffect, useState} from "react";
-import {fetchCategories} from "../Service/CategoryService.js";
-import {fetchItems} from "../Service/ItemService.js";
+import { createContext, useEffect, useState } from "react";
+import { fetchCategories } from "../Service/CategoryService.js";
+import { fetchItems } from "../Service/ItemService.js";
 
 export const AppContext = createContext(null);
 
@@ -8,16 +8,16 @@ export const AppContextProvider = (props) => {
 
     const [categories, setCategories] = useState([]);
     const [itemsData, setItemsData] = useState([]);
-    const [auth, setAuth] = useState({token: null, role: null});
+    const [auth, setAuth] = useState({ token: null, role: null });
     const [cartItems, setCartItems] = useState([]);
 
     const addToCart = (item) => {
         const itemId = item.itemId || item.id;
         const existingItem = cartItems.find(cartItem => (cartItem.itemId || cartItem.id) === itemId);
         if (existingItem) {
-            setCartItems(cartItems.map(cartItem => 
-                (cartItem.itemId || cartItem.id) === itemId 
-                    ? {...cartItem, quantity: cartItem.quantity + 1} 
+            setCartItems(cartItems.map(cartItem =>
+                (cartItem.itemId || cartItem.id) === itemId
+                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
                     : cartItem
             ));
         } else {
@@ -34,7 +34,7 @@ export const AppContextProvider = (props) => {
     }
 
     const updateQuantity = (itemId, newQuantity) => {
-        setCartItems(cartItems.map(item => item.itemId === itemId ? {...item, quantity: newQuantity} : item));
+        setCartItems(cartItems.map(item => item.itemId === itemId ? { ...item, quantity: newQuantity } : item));
     }
 
     useEffect(() => {
@@ -45,18 +45,28 @@ export const AppContextProvider = (props) => {
                     localStorage.getItem("role")
                 );
             }
-            const response = await fetchCategories();
-            const itemResponse = await fetchItems();
-            console.log('item response', itemResponse);
-            setCategories(response.data);
-            setItemsData(itemResponse.data);
-
+            try {
+                const response = await fetchCategories();
+                console.log('categories response', response);
+                setCategories(response.data || []);
+            } catch (error) {
+                console.error('Failed to load categories:', error);
+                setCategories([]);
+            }
+            try {
+                const itemResponse = await fetchItems();
+                console.log('item response', itemResponse);
+                setItemsData(itemResponse.data || []);
+            } catch (error) {
+                console.error('Failed to load items:', error);
+                setItemsData([]);
+            }
         }
         loadData();
     }, []);
 
     const setAuthData = (token, role) => {
-        setAuth({token, role});
+        setAuth({ token, role });
     }
 
     const clearCart = () => {

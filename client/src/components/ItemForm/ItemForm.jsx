@@ -1,5 +1,5 @@
-import { useState, useContext } from "react"
-import { Upload, Plus } from "lucide-react"
+import { useState, useContext, useRef } from "react"
+import { Upload, Plus, X, Image } from "lucide-react"
 import toast from "react-hot-toast"
 import { AppContext } from "../../context/AppContext"
 import { addItem } from "../../Service/ItemService.js"
@@ -7,6 +7,9 @@ import { addItem } from "../../Service/ItemService.js"
 const ItemForm = () => {
     const { categories, setItemsData } = useContext(AppContext)
     const [loading, setLoading] = useState(false)
+    const [file, setFile] = useState(null)
+    const [preview, setPreview] = useState(null)
+    const fileInputRef = useRef(null)
     const [formData, setFormData] = useState({
         name: "",
         price: "",
@@ -21,19 +24,50 @@ const ItemForm = () => {
         }))
     }
 
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0]
+        if (selectedFile) {
+            setFile(selectedFile)
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setPreview(reader.result)
+            }
+            reader.readAsDataURL(selectedFile)
+        }
+    }
+
+    const handleRemoveFile = (e) => {
+        e.stopPropagation()
+        setFile(null)
+        setPreview(null)
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ""
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!formData.name || !formData.price || !formData.categoryId) {
+        if (!formData.name || !formData.price) {
             toast.error("Please fill all required fields")
+            return
+        }
+        if (!formData.categoryId) {
+            toast.error("Please select a category. Create one in 'Manage Category' first if none exist.")
+            return
+        }
+        if (!file) {
+            toast.error("Please upload an image")
             return
         }
 
         setLoading(true)
         try {
-            const response = await addItem(formData)
+            const response = await addItem(formData, file)
             setItemsData(prev => [...prev, response.data])
             toast.success("Item created successfully!")
             setFormData({ name: "", price: "", description: "", categoryId: "" })
+            setFile(null)
+            setPreview(null)
         } catch (error) {
             console.error("Failed to create item:", error)
             toast.error("Failed to create item")
@@ -46,9 +80,34 @@ const ItemForm = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
             {/* Image Upload */}
             <div className="flex justify-center">
-                <div className="w-24 h-24 rounded-xl border-2 border-dashed border-[#262626] flex flex-col items-center justify-center gap-2 text-[#525252] hover:border-[#d4a574]/30 hover:text-[#d4a574] transition-all cursor-pointer">
-                    <Upload className="w-6 h-6" />
-                    <span className="text-xs">Upload</span>
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="hidden"
+                />
+                <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-24 h-24 rounded-xl border-2 border-dashed border-[#262626] flex flex-col items-center justify-center gap-2 text-[#525252] hover:border-[#3b82f6]/30 hover:text-[#3b82f6] transition-all cursor-pointer overflow-hidden relative"
+                >
+                    {preview ? (
+                        <>
+                            <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                            <button
+                                type="button"
+                                onClick={handleRemoveFile}
+                                className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/70 flex items-center justify-center text-white hover:bg-red-500 transition-colors"
+                            >
+                                <X className="w-3 h-3" />
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Upload className="w-6 h-6" />
+                            <span className="text-xs">Upload</span>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -85,7 +144,7 @@ const ItemForm = () => {
             {/* Category */}
             <div>
                 <label className="block text-xs font-medium text-[#525252] uppercase tracking-wider mb-2">
-                    Category *
+                    Category (Optional)
                 </label>
                 <select
                     name="categoryId"
@@ -95,7 +154,7 @@ const ItemForm = () => {
                 >
                     <option value="">Select category</option>
                     {categories.map(cat => (
-                        <option key={cat.categoryId} value={cat.id}>
+                        <option key={cat.categoryId} value={cat.categoryId}>
                             {cat.name}
                         </option>
                     ))}

@@ -33,12 +33,12 @@ const Item = ({ item }) => {
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           <h4 className="text-white font-medium truncate mb-1">{item.name}</h4>
-          <p className="text-[#d4a574] font-semibold">₹{item.price}</p>
+          <p className="text-[#3b82f6] font-semibold">₹{item.price}</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-9 h-9 rounded-xl bg-[#d4a574]/10 flex items-center justify-center text-[#d4a574] group-hover:bg-[#d4a574] group-hover:text-[#0a0a0a] transition-all"
+          className="w-9 h-9 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] group-hover:bg-[#3b82f6] group-hover:text-white transition-all"
           onClick={(e) => {
             e.stopPropagation()
             addToCart(item)

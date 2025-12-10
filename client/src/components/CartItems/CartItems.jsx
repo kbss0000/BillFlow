@@ -30,7 +30,7 @@ const CartItems = () => {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <h4 className="text-white text-sm font-medium truncate">{item.name}</h4>
-            <p className="text-[#d4a574] text-sm">₹{item.price}</p>
+            <p className="text-[#3b82f6] text-sm">\u20b9{item.price}</p>
           </div>
 
           {/* Quantity Controls */}

@@ -10,6 +10,11 @@ const getApiBaseUrl = () => {
         return 'https://billflow-api-production.up.railway.app/api/v1.0';
     }
 
+    // In production (Render), use the backend service URL
+    if (window.location.hostname.includes('onrender.com')) {
+        return 'https://billflow-api.onrender.com/api/v1.0';
+    }
+
     // Default for local development
     return '/api/v1.0';
 };

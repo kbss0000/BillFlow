@@ -28,7 +28,7 @@ const OrderHistory = () => {
   )
 
   const stats = [
-    { label: "Total Orders", value: orders.length, icon: Clock, color: "#d4a574" },
+    { label: "Total Orders", value: orders.length, icon: Clock, color: "#3b82f6" },
     { label: "Completed", value: orders.filter(o => o.status === 1).length, icon: CheckCircle, color: "#4ade80" },
     { label: "Pending", value: orders.filter(o => o.status === 0).length, icon: XCircle, color: "#fbbf24" },
   ]
@@ -50,7 +50,7 @@ const OrderHistory = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#d4a574] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -150,7 +150,7 @@ const OrderHistory = () => {
                     transition={{ delay: idx * 0.05 }}
                     className="border-b border-[#1f1f1f] last:border-0 hover:bg-[#111111]/50 transition-colors"
                   >
-                    <td className="px-6 py-4 text-sm text-[#d4a574] font-medium">{order.orderId}</td>
+                    <td className="px-6 py-4 text-sm text-[#3b82f6] font-medium">{order.orderId}</td>
                     <td className="px-6 py-4 text-sm text-white">{order.customerName}</td>
                     <td className="px-6 py-4 text-sm text-[#a3a3a3]">{order.phoneNumber || "-"}</td>
                     <td className="px-6 py-4 text-sm text-white font-medium">₹{order.grandTotal}</td>

@@ -50,7 +50,7 @@ const App = () => {
     const isAuthPage = location.pathname === "/login" || location.pathname === '/';
 
     return (
-        <div className="min-h-screen text-white font-sans selection:bg-[#d4a574]/30">
+        <div className="min-h-screen text-white font-sans selection:bg-[#3b82f6]/30">
             {/* Background for main pages */}
             {!isAuthPage && (
                 <div className="fixed inset-0" style={{ zIndex: -1 }}>

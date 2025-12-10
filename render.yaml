@@ -10,7 +10,7 @@ services:
     dockerContext: ./billingsoftware
     region: oregon
     plan: free
-    healthCheckPath: /api/health
+    healthCheckPath: /api/v1.0/health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
@@ -29,7 +29,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ALLOWED_ORIGINS
-        sync: false
+        value: https://billflow-client.onrender.com
 
   # Frontend - Vite React
   - type: web
@@ -39,6 +39,9 @@ services:
     staticPublishPath: ./client/dist
     region: oregon
     plan: free
+    envVars:
+      - key: VITE_API_URL
+        value: https://billflow-api.onrender.com/api/v1.0
     headers:
       - path: /*
         name: X-Frame-Options

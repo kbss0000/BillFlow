@@ -24,15 +24,20 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Only redirect to login on 401 (unauthorized/invalid token)
+    // 403 (forbidden) means permission denied but user is still logged in
     if (error.response?.status === 401) {
-      // Handle unauthorized - clear token and redirect to login
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-      window.location.href = '/login';
+      // Check if we're NOT already on the login page to prevent infinite loop
+      if (!window.location.pathname.includes('/login')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
 );
 
 export default apiClient;
+
 
