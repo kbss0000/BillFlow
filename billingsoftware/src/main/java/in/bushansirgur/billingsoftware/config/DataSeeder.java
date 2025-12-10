@@ -33,7 +33,10 @@ public class DataSeeder implements CommandLineRunner {
         Optional<UserEntity> userOptional = userRepository.findByEmail(adminEmail);
 
         if (userOptional.isPresent()) {
-            log.info("Admin user already exists: {}", adminEmail);
+            UserEntity existingAdmin = userOptional.get();
+            existingAdmin.setPassword(passwordEncoder.encode("admin123"));
+            userRepository.save(existingAdmin);
+            log.info("Admin user password reset to 'admin123': {}", adminEmail);
         } else {
             UserEntity adminUser = UserEntity.builder()
                     .email(adminEmail)
