@@ -37,10 +37,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/encode", "/uploads/**", "/health")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/login", "/**/login", "/encode", "/**/encode", "/uploads/**", "/**/uploads/**", "/health", "/**/health")
                         .permitAll()
-                        .requestMatchers("/categories", "/items", "/orders", "/payments", "/dashboard").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/categories", "/**/categories", "/items", "/**/items", "/orders", "/**/orders", "/payments", "/**/payments", "/dashboard", "/**/dashboard").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/**", "/**/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
