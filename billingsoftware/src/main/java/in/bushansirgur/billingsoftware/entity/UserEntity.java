@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "tbl_users")
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {

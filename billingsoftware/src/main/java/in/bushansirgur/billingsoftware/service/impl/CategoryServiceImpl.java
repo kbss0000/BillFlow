@@ -70,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
-        Integer itemsCount = itemRepository.countByCategory_Id(newCategory.getId());
+        Integer itemsCount = itemRepository.countByCategory(newCategory);
         return CategoryResponse.builder()
                 .categoryId(newCategory.getCategoryId())
                 .name(newCategory.getName())

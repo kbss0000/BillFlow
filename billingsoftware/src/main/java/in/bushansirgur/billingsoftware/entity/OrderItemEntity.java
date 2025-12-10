@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Entity
 @Table(name = "tbl_order_items")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
